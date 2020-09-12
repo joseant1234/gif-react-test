@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { GifGridItem } from './GifGridItem';
+import { getGifs } from '../helpers/getGifs';
 
 export const GifGrid = ({ category }) => {
 
@@ -7,25 +8,14 @@ export const GifGrid = ({ category }) => {
 
 
     // con el arreglo vació solo se ejecuta una vez lo que está dentro del effect. Se ejecuta cuando se renderiza por primera vez el componente
+    // useEffect(() => {
+    //     getGifs(category).then(setImages(imgs));
+    // }, [])
+
+    // si se envía en el arreglo de dependecias, cada vez que se actualice category se va a ejecutar el effect
     useEffect(() => {
-        getGifs();
-    }, [])
-
-    const getGifs = async () => {
-        const url = 'https://api.giphy.com/v1/gifs/search?q=Naruto&limit=10&api_key=XU8ZSAAVXGf948DC3MQyvHBIoB9tQyx1'
-        const response = await fetch(url);
-        const { data } = await response.json();
-
-        const gifs = data.map( img => {
-            return {
-                id: img.id,
-                title: img.title,
-                url: img.images?.downsized_medium.url,
-            }
-        })
-        setImages(gifs);
-
-    }
+        getGifs(category).then(setImages);
+    }, [category])
 
     return (
         <>
