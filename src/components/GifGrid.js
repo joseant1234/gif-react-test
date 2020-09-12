@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { GifGridItem } from './GifGridItem';
 
 export const GifGrid = ({ category }) => {
 
-    // con el arreglo vació solo se ejecuta una vez lo que está dentro del effect. Se ejecuta cuando se renderiza por primera vez el componente
+    const [images, setImages] = useState([]) ;
 
+
+    // con el arreglo vació solo se ejecuta una vez lo que está dentro del effect. Se ejecuta cuando se renderiza por primera vez el componente
     useEffect(() => {
         getGifs();
     }, [])
@@ -20,13 +23,21 @@ export const GifGrid = ({ category }) => {
                 url: img.images?.downsized_medium.url,
             }
         })
+        setImages(gifs);
 
-        console.log(gifs);
     }
 
     return (
         <div>
             <h3>{ category }</h3>
+            {
+                images.map((img) => (
+                    <GifGridItem
+                        key={img.id}
+                        {...img}
+                    />
+                ))
+            }
         </div>
     )
 }
