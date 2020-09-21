@@ -5,11 +5,22 @@ import { AddCategory } from '../../components/AddCategory';
 describe('Test to <AddCategory>', () => {
 
     const setCategories = () => {};
+    const wrapper = shallow(<AddCategory setCategories={setCategories} />);
 
     test('should show correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
 
-        const wrapper = shallow(<AddCategory setCategories={setCategories} />);
+    test('should update input text', () => {
 
-        expect(wrapper).toMatchSnapshot(wrapper);
+        const input = wrapper.find('input');
+
+        // simular el evento change de un input
+        // se debe en enviar como argumento el value del evento (e.target.value)
+        const value = 'Value';
+        input.simulate('change', { target: { value } });
+
+        expect(wrapper.find('p').text().trim()).toBe(value);
+
     })
 })
