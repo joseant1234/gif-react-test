@@ -41,4 +41,18 @@ describe('Test to <AddCategory>', () => {
         expect(setCategories).not.toHaveBeenCalled();
 
     })
+
+    test('should call set categories function and clean input text',() => {
+        const value = "Value";
+
+        wrapper.find('input').simulate('change', { target: { value }});
+
+        wrapper.find('form').simulate('submit', { preventDefault(){} });
+
+        expect(setCategories).toHaveBeenCalled();
+        expect(setCategories).toHaveBeenCalledTimes(1);
+        // espera que se llame con una función en el setCategories( function )
+        expect(setCategories).toHaveBeenCalledWith(expect.any(Function));
+        expect(wrapper.find('input').prop('value')).toBe('');
+    })
 })
