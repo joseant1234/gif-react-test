@@ -17,23 +17,3 @@ exports[`Test in <GifGrid /> should show correctly 1`] = `
   />
 </Fragment>
 `;
-
-exports[`Test in <GifGrid /> should show items when images are loading using useFetchGifs 1`] = `
-<Fragment>
-  <h3
-    className="animate__animated animate__fadeIn"
-  >
-    Naruto
-  </h3>
-  <div
-    className="card-grid"
-  >
-    <GifGridItem
-      id="Example"
-      key="Example"
-      title="Title"
-      url="https://localhost/something.jpg"
-    />
-  </div>
-</Fragment>
-`;
